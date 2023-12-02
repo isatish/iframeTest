@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IFrame with Query Parameters</title>
+  </head>
+  <body>
+    <div>Load inside iframe</div>
+    <script>
+      function createIframeWithParams() {
+        var baseUrl = "https://avalara.dev.appknit.io/launchpartnerportal";
+        var queryParams = {
+          podIdentifier: "non-prod",
+        };
+
+        var fullUrl =
+          baseUrl +
+          "?" +
+          Object.keys(queryParams)
+            .map(function (key) {
+              return key + "=" + encodeURIComponent(queryParams[key]);
+            })
+            .join("&");
+
+        var iframe = document.createElement("iframe");
+
+        iframe.src = fullUrl;
+        iframe.width = "100%";
+        iframe.height = "800px"; 
+
+        document.body.appendChild(iframe);
+      }
+
+      window.onload = function () {
+        createIframeWithParams();
+      };
+    </script>
+  </body>
+</html>
